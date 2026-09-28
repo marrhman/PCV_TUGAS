@@ -16,7 +16,7 @@ Program pengenalan operasi dasar citra berwarna menggunakan BGR channel pada Ope
 Program ini dapat membaca dan menampilkan gambar yang sudah terfilter.\
 Filter pada gambar adalah menukar nilai biru ke channel merah dan nilai merah ke channel biru.\
 Berikut adalah perbandingan gambar sebelum dan sesudah difilter.
-![Hasil Filter](image_compare.jpg)
+![Hasil Filter](image/image_compare.jpg)
 
 Selain menampilkan gambar, program juga dapat membaca webcam dan menampilkannya.\
 Webcam yang dibaca difilter per 50 frame, mulai dari filter warna biru, hijau, merah, dan filter tukar data warna.
@@ -29,33 +29,33 @@ Program ini berisi implementasi manual beberapa transformasi intensitas citra gr
 ### 2.1 Citra Negatif
 Setiap nilai intensitas `r` dibalik terhadap rentang grayscale `0–255`.
 Hasil gambar yang sudah dibalik:
-![Citra negatif](citra_negatif.png)
+![Citra negatif](image/citra_negatif.jpg)
 
 ### 2.2 Transformasi Log
 Program menghitung transformasi menggunakan `math.log()` secara manual, kemudian membatasi hasil ke rentang `0–255` sebelum dikonversi kembali ke `uint8`.
 Hasil gambar setelah transformasi:
-![Citra log](citra_log.png)
+![Citra log](image/citra_log.jpg)
 
 ### 2.3 Transformasi Gamma
 Menggunakan nilai gamma di bawah `1` untuk membuat citra menjadi lebih terang.
 Hasil gambar setelah transformasi:
-![Citra gamma](citra_gamma.png)
+![Citra gamma](image/citra_gamma.jpg)
 
 ### 2.4 Contrast Stretching
 Program terlebih dahulu mencari nilai minimum dan maksimum intensitas secara manual, kemudian dengan rumus transformasi didapatkan gambar yang lebih contrast (melebar histogramnya-nilai terlalu tinggi/rendah semakin bergeser dan nilai tengah bergeser sedikit).
 Hasil gambar setelah transformasi:
-![Citra contrast stretching](citra_contrast.png)
+![Citra contrast stretching](image/citra_contrast.jpg)
 
 ### 2.5 Piecewise Linear Transformation
 Program membuat beberapa titik. Titik-titik ini menentukan agar nilai intensitas dibagi menjadi tiga daerah.
 Masing-masing daerah mempunyai persamaan linear sendiri.
 Hasil gambar setelah transformasi:
-![Citra piecewise](citra-piecewise.png)
+![Citra piecewise](image/citra_piecewise.jpg)
 
 ### 2.6 Thresholding
 Program menggunakan nilai threshold yang ditentukan untuk diterapkan pada aturan threshold. Nilai threshold menentukan titik mana gambar menjadi sepenuhnya gelap/terang.
 Hasil gambar setelah transformasi:
-![Citra threshold](citra_threshold.png)
+![Citra threshold](image/citra_threshold.jpg)
 
 ---
 
