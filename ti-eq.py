@@ -3,7 +3,7 @@ import cv2, numpy as np, math
 #ti-eq.py = berisi penerapan transformasi intensitas dan ekualisasi histogram, 
 # dilarang menggunakan func bawaan package.
 
-gambar = cv2.imread("image.jpg", 0)  #nilai grayscale nya saja yg terbaca
+gambar = cv2.imread("image.jpg", cv2.IMREAD_GRAYSCALE)  #nilai grayscale nya saja yg terbaca
 print("Ukuran gambar: ", gambar.shape)
 print("Tipe data gambar: ", gambar.dtype) 
 cv2.imshow("gambar awal", gambar)
@@ -16,6 +16,7 @@ for y in range(gambar.shape[0]):
         negatif_s = 255 - asli_r
         kontainer_negatif[y, x] = negatif_s
 cv2.imshow("citra negatif", kontainer_negatif)
+
 
 #transformasi log
 kontainer_log = gambar.astype(np.float32)
@@ -97,7 +98,21 @@ for y in range(gambar.shape[0]):
 cv2.imshow("citra threshold", kontainer_threshold)
 
 #ekualisasi histogram
-
+def ekualisasi_manual(gambar, L=256):
+    MN = gambar.size
+    hist = np.bincount(gambar.ravel(), minlength=L) # 1. histogram
+    p = hist / MN # 2. ternormalisasi
+    cdf = np.cumsum(p) # 3. distribusi kumulatif
+    s = np.floor((L - 1) * cdf + 0.5) # 4. skala dan bulatkan
+    lut = np.clip(s, 0, L - 1).astype(np.uint8) # jadikan tabel
+    return lut[gambar] # 5. petakan tiap piksel
+cv2.imshow("hasil ekualisasi manual", ekualisasi_manual(gambar))
+#CLAHE: ekualisasi per petak kecil, mencegah penguatan derau berlebihan
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+hasil_clahe = clahe.apply(gambar)
+cv2.imshow("hasil CLAHE", hasil_clahe)
+beda = np.abs(ekualisasi_manual(gambar).astype(int) - cv2.equalizeHist(gambar).astype(int))
+print("selisih maksimum dengan cv2.equalizeHist:", beda.max())
 
 
 cv2.waitKey(0)
